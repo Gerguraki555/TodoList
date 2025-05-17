@@ -40,6 +40,8 @@ namespace Teendok
 
             teendomenu.Add("Teendő hozzáadása", Hozzaadas);
 
+            teendomenu.Add("Teendő törlése", TeendoTorlese);
+
             teendomenu.Add("Összes teendő kiírása", Kiiras);
 
             teendomenu.Add("Teendő megcsinálása", Megcsinalas);
@@ -51,6 +53,42 @@ namespace Teendok
             teendomenu.Add("Kilépés", teendomenu.CloseMenu);
 
             teendomenu.Show();
+        }
+
+        static void TeendoTorlese()
+        {
+            Console.WriteLine("Add meg az azonosítóját a teendőnek");
+
+            try
+            {
+                int bekertszam = int.Parse(Console.ReadLine());
+
+                for (int i = 0; i < Teendok.Count; i++) //Végigmegyünk az összes teendőn
+                {
+                    if (Teendok[i].Azonosito  == bekertszam) //Ha megtaláltuk a törlendő teendőt
+                    {
+                        Teendok.Remove(Teendok[i]);
+
+                        Console.WriteLine("A teendő törölve.");
+                    }
+                }
+
+                int ujazonosito = 1; //Újra állítjuk az azonosítókat
+
+                foreach (var alma in Teendok)
+                {
+                    alma.Azonosito = ujazonosito;
+
+                    ujazonosito++;
+                }
+
+            }
+            catch
+            {
+                Console.WriteLine("HIBA: Nem jó számot adtál meg.");
+            }
+
+            Console.ReadLine();
         }
 
         static void Megcsinalas()
